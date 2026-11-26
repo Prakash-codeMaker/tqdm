@@ -579,7 +579,7 @@ class tqdm(Comparable):
         try:
             eta_dt = (datetime.now() + timedelta(seconds=remaining)
                       if rate and total else datetime.fromtimestamp(0, timezone.utc))
-        except OverflowError:
+        except (OverflowError, ValueError):
             eta_dt = datetime.max
 
         # format the stats displayed to the left and right sides of the bar
