@@ -409,8 +409,12 @@ class tqdm(Comparable):
         out  : str
             [H:]MM:SS
         """
-        sign = '-' if t < 0 else ''
-        mins, s = divmod(abs(int(t)), 60)
+        try:
+            sign = '-' if t < 0 else ''
+            seconds = abs(int(t))
+        except (ValueError, OverflowError):
+            return '?'
+        mins, s = divmod(seconds, 60)
         h, m = divmod(mins, 60)
         return f'{sign}{h:d}:{m:02d}:{s:02d}' if h else f'{sign}{m:02d}:{s:02d}'
 
